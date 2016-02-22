@@ -23,13 +23,16 @@ class World {
 class WorldMap {
       public final int worldSize = 50;
       private Tile[][] grid; 
+      //TODO array of heightmaps
       public WorldMap(){
             grid = new Tile[worldSize][worldSize];
             for (int i = 0; i< worldSize; i++){
                   for (int j = 0; j< worldSize; j++){
                         grid[i][j] = new Tile(1);
+                        //TODO add tile to relevant heightSet
                   }
             }
+           
       }
       public int tileHeight(int x, int y){
             return grid[x][y].height();
@@ -49,4 +52,4 @@ class Tile {
 }
 
 
-// entity- animal, structure- some permit entities, others donot, material- dirt rock sand water
+//TODO entity- animal, structure- some permit entities, others donot, material- dirt rock sand water
