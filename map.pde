@@ -11,6 +11,9 @@ class World {
       public WorldMap tiles(){
             return map;
       }
+      public int mapSize(){
+            return map.worldSize;
+      }
       
 }
 
@@ -18,7 +21,7 @@ class World {
       takes care of tiles in a world (Map in namespace was taken)
 */
 class WorldMap {
-      private int worldSize = 10;
+      public final int worldSize = 50;
       private Tile[][] grid; 
       public WorldMap(){
             grid = new Tile[worldSize][worldSize];
