@@ -4,6 +4,7 @@
 class World {
       private WorldMap map; // all the tiles, query this for stuff 
       //world variables
+      //int turn / tick
       public World(){
             map = new WorldMap();
       }
