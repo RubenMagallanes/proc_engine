@@ -10,11 +10,10 @@ void setup(){
 private int margin =25; 
 void draw(){
       //TODO update map based on system clock time
-      //draw current state of map
+
       //refactor frequently used variables maybe, save to locals instead of referenced? 
       //but for now , just draw tiles statically :^)
-      
-      //TODO game has turns
+
       //tiles
       fill(#17AF0B);
       stroke(#17AF0B);
