@@ -9,7 +9,10 @@ void setup(){
 
 private int margin =25; 
 void draw(){
-      //TODO update map based on system clock time
+      //draw text stuff
+      textSize(32);
+      text("word", 10, 30); 
+    
 
       //refactor frequently used variables maybe, save to locals instead of referenced? 
       //but for now , just draw tiles statically :^)
