@@ -3,10 +3,10 @@
       tick() is called on each implementing object, each then handles 
       their own actions from there
 */
-public interface Tick {
+public interface Tickable {
       /**
             do one tick's worth of actions.
       */ 
-      public tick(); 
+      public boolean tick(); 
        
 }

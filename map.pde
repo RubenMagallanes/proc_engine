@@ -1,3 +1,4 @@
+import java.util.*;
 /**
       takes care of all world variables
 */
@@ -6,14 +7,17 @@ class World {
       //world variables
       //int turn / tick
       private int turn; 
-      private set<>
+      private Set<Tickable> tickSet = new HashSet<Tickable>();//latern split this to two sets
       public World(){
             map = new WorldMap();
             turn = 0;
       }
       //functions to grab specifics about the world
       public boolean tick(){
-            
+            turn++;
+            for (Tickable t: tickSet){
+                  t.tick();
+            }
             return true;
       }
      
