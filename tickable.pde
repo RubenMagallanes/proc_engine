@@ -10,3 +10,27 @@ public interface Tickable {
       public boolean tick(); 
        
 }
+public abstract class Being implements Tickable {
+
+      /** 
+            returns a bunch of pixels to draw //todo
+      */
+      public boolean paint(int x, int y);
+      
+      public color getColor();
+
+public class Mover extends Being {
+      
+      /**move one square randomly*/
+      public boolean tick(){
+            
+            return true;
+      }
+      public boolean paint(int x, int y){
+            return false;
+      }
+      
+      public color getColor(){
+            return Color(10,10,255);
+      }
+}
