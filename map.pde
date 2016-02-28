@@ -5,13 +5,18 @@ class World {
       private WorldMap map; // all the tiles, query this for stuff 
       //world variables
       //int turn / tick
+      private int turn; 
+      private set<>
       public World(){
             map = new WorldMap();
+            turn = 0;
       }
-      /** change this to bunch of read only functions to get specifics */
-      public WorldMap tiles(){
-            return map;
+      //functions to grab specifics about the world
+      public boolean tick(){
+            
+            return true;
       }
+     
       public int mapSize(){
             return map.worldSize;
       }
