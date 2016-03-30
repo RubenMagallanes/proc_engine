@@ -6,7 +6,7 @@ class World {
       private WorldMap map; // all the tiles, query this for stuff 
  
       //int turn / tick
-      private int turn; 
+      //private int turn; 
                               //for querying for drawing
       //set of players
       //set of npcs
@@ -16,36 +16,36 @@ class World {
       //list of sources of input () - one for each player, and one for nature//todo
       
       //set of things that are affected by tick()
-      private Set<Tickable> tickSet = new HashSet<Tickable>();//latern split this to two sets
+      //private Set<Tickable> tickSet = new HashSet<Tickable>();//latern split this to two sets
       
       public World(){
             map = new WorldMap();
-            turn = 0;
+            //turn = 0;
       }
       //functions to grab specifics about the world
-      public boolean tick(){
+     /* public boolean tick(){
             turn++;
             for (Tickable t: tickSet){
                   if (!t.tick()) return false;
             }
             return true;
-      }
+      }*/
      
       public int mapSize(){
             return map.worldSize;
       }
-      public int turnNumber(){
+     /* public int turnNumber(){
             return turn;
-      }
+      }*/
 }
 
 /**      
       takes care of tiles in a world (Map in namespace was taken)
 */
 class WorldMap {
-      public final int worldSize = 50;
+      public final int worldSize = 20;
       private Tile[][] grid; 
-      //TODO array of heightmaps / each tile has a height
+     
       public WorldMap(){
             grid = new Tile[worldSize][worldSize];
             for (int i = 0; i< worldSize; i++){
@@ -64,12 +64,23 @@ class WorldMap {
 /**   a single tile in the worldMap
 */
 class Tile {
-      private int height; 
-      public Tile(int h){
-            height = h;
+      private int h; 
+      //material can be dirt, sand, rock
+      private String m; // change to enumaterial?
+      
+      public Tile(int hei){
+            this.h = hei;
+            this.m = "dirt";
       }
-      public int height(){
-            return this.height;
+      public Tile (int hei, String mat){
+            this.h = hei;
+            this.m = mat;
+      }
+     public int height(){
+            return this.h;
+      }
+      public String material(){
+            return this.m;
       }
 }
 
