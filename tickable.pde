@@ -18,7 +18,7 @@ public abstract class Being implements Tickable {
       public boolean paint(int x, int y);
       
       public color getColor();
-
+}
 public class Mover extends Being {
       
       /**move one square randomly*/
