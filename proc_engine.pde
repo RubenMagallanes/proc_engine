@@ -1,62 +1,100 @@
+//private World world; // the world
+private int[][] temp_map = {
+      {1, 1, 1, 1, 1}, 
+      {1, 2, 2, 2, 1}, 
+      {1, 2, 3, 2, 1}, 
+      {1, 2, 2, 2, 1}, 
+      {1, 1, 1, 1, 1}};
+private int tilesize = 10;// in pixels
 
-
-private World world; // the world
-
-
-private int tilesize = 20;// in pixels
-
-
-void setup(){
-      size(450,450);
-      noSmooth();
-      world = new World();
+void setup() {
+      size(450, 450, P3D);
+      noSmooth(); // anti alias
+      lights();
+      translateX = 0;
+      translateY = 0;
+      translateZ = 0;
+      rotateRadsX = 30;
+      rotateRadsY = 0; 
+      rotateRadsZ = 30;
+      background(0);
 }
 
-private int margin =25; 
+int gridSize= 50;
+int gridSizeX = width/gridSize;
+int gridSizeY = height/gridSize;
+      
+int translateX, translateY, translateZ;
+int rotateRadsX, rotateRadsY, rotateRadsZ;
+
 //String turn;
-void draw(){
-      //draw text stuff
-      stroke(0);
-      fill(0);
-      textSize(15);
-      //turn = "turn: " + world.turnNumber();
-      //text(turn, 10, 15); 
-    
+void draw() {
+      translate(width/2,height/2);// point of origen with 0,0 centered
+      //scale(2.0,2.0,2.0);
+      pushMatrix();     
+      
+      translate(translateX, translateY, translateZ); 
+      rotateX(radians(rotateRadsX));
+      rotateY(radians(rotateRadsY));
+      rotateZ(radians(rotateRadsZ));
+      drawOrigin(15);
+      drawGrid();
+      drawAxes();
+      //draw everything
+      popMatrix();
+      
+      
+}
+/**
+draws 3d cube thingie at center
+*/
+private void drawOrigin(int cubeSize){
+      pushMatrix();
+      stroke(255,0,0);
+      fill(255,0);//transparent
+      
+      lineRect(0,0,cubeSize,cubeSize, "center");// draw on x,y plane
+      rotateX(PI/2); // rotate around X
+      lineRect(0,0,cubeSize,cubeSize, "center");// draw on y,z plane
+      rotateY(PI/2);// rotate around Y
+      lineRect(0,0,cubeSize,cubeSize, "center");// draw on x,z plane
+      popMatrix();// preserve previous transform stack
+}
 
-      //refactor frequently used variables maybe, save to locals instead of referenced? 
-      //but for now , just draw tiles statically :^)
-
-      //tiles
-      //fill(#17AF0B);
-      stroke(#17AF0B);
-      stroke (10,100); // draw grid
-      for (int i=0; i< world.mapSize(); i++){
-            for (int j=0; j< world.mapSize(); j++){
-                  fill(#17AF0B);
-                  stroke(10,100);
-                  if (mouseX >((i*tilesize))+ margin && mouseX < (margin+((i+1)*tilesize))){
-                       if (mouseY >((j*tilesize))+ margin && mouseY < (margin+((j+1)*tilesize))){
-                              stroke(0);
-                              if (pressed)
-                                    fill(#7ED388);
-                       }
-                 }
-                  
-                  rect(margin+ (tilesize* i), margin+ (tilesize* j), tilesize, tilesize);
-                  
-                  
+/**
+      draw the 10x10 grid at current location
+*/
+private void drawGrid(){
+      pushMatrix();
+      //fill(0,0);//transparent
+      stroke(255);
+      
+      for (int i = -100; i< 100; i+=20){
+            for (int j = -100; j< 100; j+=20){
+                  lineRect(i,j,20,20,"corner");
             }
       }
-      //draw things on tiles
-      //for () //TODO
-      
-      //query "height sets" for borderlines - set of pointers to tiles that are of the
-      //saem height, every one needs to draw boundry lines
+      popMatrix();
 }
-boolean pressed = false;
+/**
+helper function for drawing
+draws a square out of 4 lines
+*/
+private void lineRect(int x, int y, int w, int h, String mode){
+     if(mode.equals("center")) { // pull square back by half width, height 
+           x = x-(w/2);
+           y = y-(h/2);
+     }
+      line(x,y,x, y+h);// left
+      line(x,y,x+w,y);//top
+      line(x+w,y,x+w,y+h);//right
+      line(x,y+h,x+w,y+h);//bottom
+}
+
 void  mousePressed() {
-      pressed = true;
 }
-void mouseReleased(){
-      pressed = false;
+void mouseReleased() {
+}
+void keyPressed(){
+
 }
