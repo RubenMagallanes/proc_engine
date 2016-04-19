@@ -1,11 +1,16 @@
 //private World world; // the world
 private int[][] temp_map = {
-      {1, 1, 1, 1, 1}, 
-      {1, 2, 2, 2, 1}, 
-      {1, 2, 3, 2, 1}, 
-      {1, 2, 2, 2, 1}, 
-      {1, 1, 1, 1, 1}};
+      {3, 3, 3, 3, 2}, 
+      {3, 3, 3, 2, 1}, 
+      {2, 2, 2, 2, 1}, 
+      {1, 2, 1, 1, 0}, 
+      {1, 1, 1, 0, 0}};
+
+private World world;
 private int voxel = 20;// in pixels
+
+
+
 
 void setup() {
       size(450, 450, P3D);
@@ -13,12 +18,17 @@ void setup() {
       noSmooth(); // anti alias
      // ortho();
       
+      world = new World();
+      
       translateX = 0;
       translateY = 0;
       translateZ = 0;
-      rotateDegsX = 50;// tilt back (rotateX done before Z)
+      rotateDegsX = 0;// tilt back (rotateX done before Z)
       rotateDegsY = 0; 
-      rotateDegsZ = 15;// pull front to left a lil
+      rotateDegsZ = 0;// pull front to left a lil
+      
+      camerax += width/2;
+      cameray += height/2;
       
 }
 
@@ -27,13 +37,17 @@ int rotateDegsX, rotateDegsY, rotateDegsZ;
 
 boolean keyW=false, keyA=false, keyS=false, keyD=false, 
       keyQ=false, keyE=false; // wasd keys pressed
+float camerax = width/2, cameray = height/2, cameraz = (height/2) / tan(PI/6),
+      atx = width/2, aty = height/2, atz = 0, camupx = 0, camupy = 1, camupz = 0;
+
 
 //String turn;
 void draw() {
       lights();
       background(50,50,50);
-      translate(width/2, height/2);// point of origen with 0,0 centered
-      //scale(2.0,2.0,2.0);
+      camera(camerax, cameray, cameraz, atx, aty, atz, camupx, camupy, camupz);
+      //translate(width/2, height/2);// point of origen with 0,0 centered
+
       //check for key events
       checkKeys();
       pushMatrix();  
