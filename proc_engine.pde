@@ -10,24 +10,25 @@ private int tilesize = 10;// in pixels
 void setup() {
       size(450, 450, P3D);
       noSmooth(); // anti alias
-      lights();
+      
       translateX = 0;
       translateY = 0;
       translateZ = 0;
-      rotateDegsX = 30;
+      rotateDegsX = 50;// tilt back (rotateX done before Z)
       rotateDegsY = 0; 
       rotateDegsZ = 30;
-      background(0);
+      
 }
 
 int translateX, translateY, translateZ;
 int rotateDegsX, rotateDegsY, rotateDegsZ;
 
-boolean keyW=false, keyA=false, keyS=false, keyD=false; // wasd keys pressed
+boolean keyW=false, keyA=false, keyS=false, keyD=false, 
+      keyQ=false, keyE=false; // wasd keys pressed
 
 //String turn;
 void draw() {
-      clear();
+      background(20,20,20);
       translate(width/2, height/2);// point of origen with 0,0 centered
       //scale(2.0,2.0,2.0);
       //check for key events
@@ -35,20 +36,36 @@ void draw() {
       pushMatrix();     
 
       translate(translateX, translateY, translateZ); 
+      
       rotateX(radians(rotateDegsX));
       rotateY(radians(rotateDegsY));
       rotateZ(radians(rotateDegsZ));
+      
       drawOrigin(15);
       drawGrid();
       drawAxes();
-      //draw everything
+      drawEnvironment();
       popMatrix();
 }
+/**      draw everything in th scene      */
+private void drawEnvironment(){
+      pushMatrix();
+      translate(100,100);
+      fill(20,100,20);
+      stroke(20,100,20);
+      
+      box(10);
+      popMatrix();
+}
+
 private void checkKeys(){
        if (keyW) {
            
       }
       if (keyA) {
+           
+      }
+      if (keyQ) {
             rotateDegsZ ++; 
             if (rotateDegsZ > 360) rotateDegsZ=0;
       }
@@ -56,6 +73,9 @@ private void checkKeys(){
            
       }
       if (keyD) {
+           
+      }
+      if (keyE) {
             rotateDegsZ --; 
             if (rotateDegsZ < 0) rotateDegsZ=360;
       }
@@ -65,7 +85,7 @@ private void checkKeys(){
  */
 private void drawOrigin(int cubeSize) {
       pushMatrix();
-      stroke(255, 0, 0);
+      stroke(190, 190, 190);
       fill(255, 0);//transparent
 
       lineRect(0, 0, cubeSize, cubeSize, "center");// draw on x,y plane
@@ -92,6 +112,22 @@ private void drawGrid() {
       popMatrix();
 }
 /***/private void drawAxes() {
+      pushMatrix();
+      pushStyle();
+      strokeWeight(3);
+      
+      stroke(255,0,0);//x
+      line(0,0,50,0);
+      
+      stroke(0,255,0);//y
+      line(0,0,0,50);
+      
+      stroke(0,0,255);//z
+      rotateY(radians(-90));
+      line(0,0,50,0);
+      
+      popStyle();
+      popMatrix();
 }
 /**
  helper function for drawing
@@ -121,7 +157,11 @@ void keyPressed() {
             keyS = true;
       } else if (key == 'd' || key == 'D') {
             keyD = true;
-      }
+      } else if (key == 'q' || key == 'Q') {
+            keyQ = true;
+      } else if (key == 'e' || key == 'E') {
+            keyE = true;
+      } 
 }
 void keyReleased() {
       if (key == 'w' || key == 'W')
@@ -132,5 +172,9 @@ void keyReleased() {
             keyS = false;
       } else if (key == 'd' || key == 'D') {
             keyD = false;
-      }
+      }else if (key == 'q' || key == 'Q') {
+            keyQ = false;
+      } else if (key == 'e' || key == 'E') {
+            keyE = false;
+      } 
 }
