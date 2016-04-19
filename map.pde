@@ -5,38 +5,14 @@ import java.util.*;
 class World {
       private WorldMap map; // all the tiles, query this for stuff 
  
-      //int turn / tick
-      //private int turn; 
-                              //for querying for drawing
-      //set of players
-      //set of npcs
-     // private Set npsDrawSet<> //TODO
-      //set of terrain (trees etc)
-                              //for accepting input
-      //list of sources of input () - one for each player, and one for nature//todo
-      
-      //set of things that are affected by tick()
-      //private Set<Tickable> tickSet = new HashSet<Tickable>();//latern split this to two sets
-      
       public World(){
             map = new WorldMap();
-            //turn = 0;
       }
-      //functions to grab specifics about the world
-     /* public boolean tick(){
-            turn++;
-            for (Tickable t: tickSet){
-                  if (!t.tick()) return false;
-            }
-            return true;
-      }*/
      
       public int mapSize(){
             return map.worldSize;
       }
-     /* public int turnNumber(){
-            return turn;
-      }*/
+
 }
 
 /**      
@@ -65,7 +41,7 @@ class WorldMap {
 */
 class Tile {
       private int h; 
-      //material can be dirt, sand, rock
+      //material can be dirt, grass, sand, rock
       private String m; // change to enumaterial?
       
       public Tile(int hei){
@@ -83,6 +59,3 @@ class Tile {
             return this.m;
       }
 }
-
-
-//TODO entity- animal, structure- some permit entities, others donot, material- dirt rock sand water

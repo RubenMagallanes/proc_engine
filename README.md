@@ -14,3 +14,4 @@ lets the user affect. - extend to client/ server later
 
 in branch 3d:
 keep track of center point when translating, draw axes + grid there at all times
+q,e rotates around center of screen

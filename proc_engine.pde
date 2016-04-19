@@ -5,12 +5,13 @@ private int[][] temp_map = {
       {1, 2, 3, 2, 1}, 
       {1, 2, 2, 2, 1}, 
       {1, 1, 1, 1, 1}};
-private int tilesize = 10;// in pixels
+private int voxel = 20;// in pixels
 
 void setup() {
       size(450, 450, P3D);
+      
       noSmooth(); // anti alias
-      //ortho();
+     // ortho();
       
       translateX = 0;
       translateY = 0;
@@ -29,13 +30,16 @@ boolean keyW=false, keyA=false, keyS=false, keyD=false,
 
 //String turn;
 void draw() {
+      lights();
       background(50,50,50);
       translate(width/2, height/2);// point of origen with 0,0 centered
       //scale(2.0,2.0,2.0);
       //check for key events
       checkKeys();
-      pushMatrix();     
-
+      pushMatrix();  
+      //translate here makes everything move
+      
+      //draw ui elements (make own func) // TODO
       //draw axes in top left
       pushMatrix();
       translate(-150,-150);
@@ -44,29 +48,50 @@ void draw() {
       rotateZ(radians(rotateDegsZ));
       drawAxes();
       popMatrix();
-      
-      
+     //translate here does some weird ortho stuff, a,d move left right fine, but w,s go up and down
+       
+     // pushMatrix();
       rotateX(radians(rotateDegsX));
       rotateY(radians(rotateDegsY));
       rotateZ(radians(rotateDegsZ));
       
-      
-      translate(translateX, translateY, translateZ); 
+      //translate here makes translations follow axes on screen
+        translate(translateX, translateY, translateZ); 
+     
+    
       drawAxes();
       drawOrigin(15);
       drawGrid();
       
       drawEnvironment();
+      //popMatrix();
+       
+      
       popMatrix();
+      
 }
 /**      draw everything in th scene      */
 private void drawEnvironment(){
-      pushMatrix();
-      translate(95,95);
-      fill(20,100,20);
-      stroke(20,100,20);
+      //pushMatrix();
+      //translate(95,95);
+      //fill(20,100,20);
+      //stroke(20,100,20);
       
-      box(10);
+      //box(10);
+      //popMatrix();
+      pushMatrix();
+      pushStyle();
+      fill(20,100,20);
+      stroke(50,130,50);
+      for (int i = 0; i< 5; i++){
+            for (int j = 0; j< 5; j++){
+                  pushMatrix();
+                  translate((i*voxel) - (voxel/2), (j*voxel) - (voxel/2), temp_map[j][i] * voxel);
+                  box(voxel);
+                   popMatrix();
+            }
+      }
+      popStyle();
       popMatrix();
 }
 
@@ -124,7 +149,9 @@ private void drawGrid() {
       }
       popMatrix();
 }
-/***/private void drawAxes() {
+/** 
+      draws a trio of axes, red along x, green along y, blue along z
+*/private void drawAxes() {
       pushMatrix();
       pushStyle();
       strokeWeight(3);
@@ -158,14 +185,17 @@ private void lineRect(int x, int y, int w, int h, String mode) {
 }
 
 void  mousePressed() {
+      
 }
 void mouseReleased() {
 }
 void keyPressed() {
       if(keyCode == 32) {
             translateX = 0; 
-            translateY = 0; 
+            translateY = 0;  
             translateZ = 0;
+            rotateDegsX = 50;
+            rotateDegsZ = 15;
       }
       if (key == 'w' || key == 'W')
             keyW = true;
