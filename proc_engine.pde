@@ -10,13 +10,14 @@ private int tilesize = 10;// in pixels
 void setup() {
       size(450, 450, P3D);
       noSmooth(); // anti alias
+      //ortho();
       
       translateX = 0;
       translateY = 0;
       translateZ = 0;
       rotateDegsX = 50;// tilt back (rotateX done before Z)
       rotateDegsY = 0; 
-      rotateDegsZ = 30;
+      rotateDegsZ = 15;// pull front to left a lil
       
 }
 
@@ -28,29 +29,40 @@ boolean keyW=false, keyA=false, keyS=false, keyD=false,
 
 //String turn;
 void draw() {
-      background(20,20,20);
+      background(50,50,50);
       translate(width/2, height/2);// point of origen with 0,0 centered
       //scale(2.0,2.0,2.0);
       //check for key events
       checkKeys();
       pushMatrix();     
 
-      translate(translateX, translateY, translateZ); 
+      //draw axes in top left
+      pushMatrix();
+      translate(-150,-150);
+      rotateX(radians(rotateDegsX));
+      rotateY(radians(rotateDegsY+5));
+      rotateZ(radians(rotateDegsZ));
+      drawAxes();
+      popMatrix();
+      
       
       rotateX(radians(rotateDegsX));
       rotateY(radians(rotateDegsY));
       rotateZ(radians(rotateDegsZ));
       
+      
+      translate(translateX, translateY, translateZ); 
+      drawAxes();
       drawOrigin(15);
       drawGrid();
-      drawAxes();
+      
       drawEnvironment();
       popMatrix();
 }
 /**      draw everything in th scene      */
 private void drawEnvironment(){
       pushMatrix();
-      translate(100,100);
+      translate(95,95);
       fill(20,100,20);
       stroke(20,100,20);
       
@@ -59,21 +71,22 @@ private void drawEnvironment(){
 }
 
 private void checkKeys(){
-       if (keyW) {
-           
+      if (keyW) {
+          translateY +=5;
+          
       }
       if (keyA) {
-           
+           translateX +=5;
       }
       if (keyQ) {
             rotateDegsZ ++; 
             if (rotateDegsZ > 360) rotateDegsZ=0;
       }
       if (keyS) {
-           
+           translateY -=5;
       }
       if (keyD) {
-           
+           translateX -=5;
       }
       if (keyE) {
             rotateDegsZ --; 
@@ -149,6 +162,11 @@ void  mousePressed() {
 void mouseReleased() {
 }
 void keyPressed() {
+      if(keyCode == 32) {
+            translateX = 0; 
+            translateY = 0; 
+            translateZ = 0;
+      }
       if (key == 'w' || key == 'W')
             keyW = true;
       else if (key == 'a' || key == 'A') {

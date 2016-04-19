@@ -11,3 +11,6 @@ pased
 ?update map basedon system time?
 list of imput sources, increment int, if matches user's place in input array,
 lets the user affect. - extend to client/ server later
+
+in branch 3d:
+keep track of center point when translating, draw axes + grid there at all times
